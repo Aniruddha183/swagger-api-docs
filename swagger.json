@@ -1,0 +1,140 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Node JS API Project for Mongo DB",
+      "version": "1.0.0",
+      "description": "API documentation for the Node.js application with MongoDB",
+      "contact": {
+        "email": "you@your-company.com"
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      }
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8080",
+        "description": "Local server"
+      }
+    ],
+    "tags": [
+      {
+        "name": "developers",
+        "description": "Operations available to regular developers"
+      }
+    ],
+    "paths": {
+      "/api/AS/get-all-states": {
+        "get": {
+          "tags": ["developers"],
+          "summary": "Get all cities",
+          "description": "Retrieve a list of all cities",
+          "operationId": "getAllCities",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/City"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/api/AS/upload": {
+        "post": {
+          "tags": ["developers"],
+          "summary": "Upload a file",
+          "description": "Upload a file using multer",
+          "operationId": "uploadFile",
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fileToUpload": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "File to upload"
+          },
+          "responses": {
+            "200": {
+              "description": "File uploaded successfully"
+            },
+            "400": {
+              "description": "No file uploaded"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/api/AS/upload-img-url": {
+        "get": {
+          "tags": ["developers"],
+          "summary": "Upload Image URL",
+          "description": "Upload image URL for a given user ID",
+          "operationId": "uploadImageUrl",
+          "parameters": [
+            {
+              "name": "url",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The image URL"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Avatar Image Uploaded Successfully"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "City": {
+          "type": "object",
+          "required": ["id", "name", "state", "country"],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+  
